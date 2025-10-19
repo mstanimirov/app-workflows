@@ -2,7 +2,7 @@ import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
-import { columns, Client } from '@/components/app/clients/columns'
+import { columns, Client } from '@/components/clients/columns'
 import { DataTable } from '@/components/ui/data-table';
 
 const breadcrumbs: BreadcrumbItem[] = [
