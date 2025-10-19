@@ -6,7 +6,7 @@ import { columns, Client } from '@/components/clients/columns'
 import { DataTable } from '@/components/ui/data-table';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
-import CreateSheet from '@/components/sheet/create-sheet';
+import CreateSheet from '@/components/sheets/create-sheet';
 import React from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
