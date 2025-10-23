@@ -1,3 +1,4 @@
+import React from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
@@ -6,8 +7,9 @@ import { columns, Client } from '@/components/clients/columns'
 import { DataTable } from '@/components/ui/data-table';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
-import CreateSheet from '@/components/sheets/create-sheet';
-import React from 'react';
+import { CrudSheet } from '@/components/crud-sheet';
+import { ClientForm } from '@/components/clients/client-form';
+import { useCrudSheet } from '@/hooks/use-crud-sheet';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -36,8 +38,7 @@ export default function Clients() {
 
     const data = getData();
 
-    const formId = "client-create-form";
-    const [open, setOpen] = React.useState(false);
+    const { sheet, record, openCreate, openEdit } = useCrudSheet<Client>();
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -45,26 +46,27 @@ export default function Clients() {
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
 
                 <div className="flex items-center gap-3">
-                    <Button onClick={() => setOpen(true)} >
+                    <Button onClick={openCreate} >
                         <Plus />
                         Client
                     </Button>
                 </div>
 
-                <DataTable columns={columns} data={data}></DataTable>
+                <DataTable
+                    columns={columns}
+                    data={data}
+                />
 
-                <CreateSheet
-                    title="New client"
-                    description="Fill out the details below and hit Create."
-                    open={open}
-                    onOpenChange={setOpen}
-                    submitLabel="Create"
-                    formId={formId}
-                >
-                    <></>
-                </CreateSheet>
+                <CrudSheet controller={sheet} titles={{ create: "Create client", edit: "Edit client" }}>
+                    <ClientForm
+                        mode={sheet.mode}
+                        initial={record ?? undefined}
+                        onCancel={sheet.close}
+                        onSuccess={sheet.close}
+                    />
+                </CrudSheet>
 
             </div>
-        </AppLayout>
+        </AppLayout >
     );
 }
