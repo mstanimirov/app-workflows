@@ -11,9 +11,12 @@ use Inertia\Inertia;
 class ClientController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $clients = Client::query()->latest()->paginate(10);
+
+        $page = (int) $request->input('page') ?? $request->query('page', 1);
+
+        $clients = Client::query()->latest()->paginate(3, ['*'], 'page', $page);
 
         return Inertia::render('clients', [
             'clients' => $clients,
