@@ -41,14 +41,6 @@ export function ClientForm({
     function submit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        // Simple client-side rules (no Zod):
-        const email = (data.email ?? "").trim();
-        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            // mimic server error surface
-            (errors as any).email = "Invalid email";
-            return;
-        }
-
         if (mode === "create") {
             post(clientStore.url());
         } else {

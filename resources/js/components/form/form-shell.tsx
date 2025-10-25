@@ -13,7 +13,7 @@ export function FormShell(
 
 
     return (
-        <form onSubmit={onSubmit} className="space-y-4 p-4">
+        <form onSubmit={onSubmit} className="space-y-4">
             <div className="grid gap-4">{children}</div>
             <div className="flex justify-end gap-2 pt-2">
                 {onCancel && (

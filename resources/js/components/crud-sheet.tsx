@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 export type CrudMode = "create" | "edit";
 
@@ -32,19 +32,32 @@ export function CrudSheet(
     props: React.PropsWithChildren<{
         controller: CrudSheetController;
         titles?: { create: string; edit: string };
+        descriptions?: { create: string; edit: string };
         side?: "right" | "left";
         className?: string;
     }>
 ) {
-    const { controller, titles = { create: "Create", edit: "Edit" }, side = "right", className, children } = props;
+    const {
+        controller,
+        titles = { create: "Create", edit: "Edit" },
+        descriptions = { create: "Create", edit: "Edit" },
+        side = "right",
+        className,
+        children
+    } = props;
 
     return (
         <Sheet open={controller.isOpen} onOpenChange={(o) => (!o ? controller.close() : null)}>
             <SheetContent side={side} className={className}>
                 <SheetHeader>
-                    <SheetTitle>{controller.mode === "create" ? titles.create : titles.edit}</SheetTitle>
+                    <SheetTitle>
+                        {controller.mode === "create" ? titles.create : titles.edit}
+                    </SheetTitle>
+                    <SheetDescription>
+                        {controller.mode === "create" ? descriptions.create : descriptions.edit}
+                    </SheetDescription>
                 </SheetHeader>
-                <div className="pt-4">{children}</div>
+                <div className="p-4">{children}</div>
             </SheetContent>
         </Sheet>
     );
